@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+  <h3>Sincronizando Trello com Google Sheets...</h3>
+  <script>
+    const t = TrelloPowerUp.iframe();
+
+    t.board('all').then(async board => {
+      const boardId = board.id;
+      const boardName = board.name;
+
+      // Pega os cards via API REST
+      const apiKey = 'SUA_API_KEY';
+      const token = 'SEU_TOKEN';
+      const url = `https://api.trello.com/1/boards/${boardId}/cards?key=${apiKey}&token=${token}`;
+
+      const cards = await fetch(url).then(res => res.json());
+
+      // Envia para Apps Script (sua planilha)
+      await fetch('https://script.google.com/macros/s/SEU_SCRIPT_ID/exec', {
+        method: 'POST',
+        body: JSON.stringify({
+          boardName: boardName,
+          cards: cards.map(c => ({
+            name: c.name,
+            desc: c.desc,
+            due: c.due,
+            list: c.idList
+          }))
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      alert('Dados enviados para Google Sheets!');
+    });
+  </script>
+</body>
+</html>
