@@ -16,8 +16,9 @@
     fetch(url)
       .then(res => res.json())
       .then(cards => {
-        return fetch('https://script.google.com/macros/s/AKfycbxjwvdtMBn5cZ2kV_cV65PQiUUgMrNIClJ2XYmZhC3NTeQbLQuxM86N8Jm6uV48s8--yg/exec', {
+        return fetch('https://script.google.com/macros/s/AKfycbwx3ayvbRWTPA662vPMoiNsWPOFQM6eDZ1F8Mc_KLNb0kVFhAiQVMDWgW77rQoIfiBJxg/exec', {
           method: 'POST',
+          mode: 'cors',
           body: JSON.stringify({
             boardName: boardName,
             cards: cards.map(c => ({
