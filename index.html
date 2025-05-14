@@ -12,15 +12,15 @@
       const boardId = board.id;
       const boardName = board.name;
 
-      // Pega os cards via API REST
-      const apiKey = 'SUA_API_KEY';
-      const token = 'SEU_TOKEN';
+      // ✅ API Key e Token atualizados
+      const apiKey = 'f55cd6733cebba6ebba7512c8ecf7c1e';
+      const token = 'ATTA185c4615062c0bd31aaa05c901205d67870afe29160e2c56ee95c3461b5e045f401885FD';
       const url = `https://api.trello.com/1/boards/${boardId}/cards?key=${apiKey}&token=${token}`;
 
       const cards = await fetch(url).then(res => res.json());
 
-      // Envia para Apps Script (sua planilha)
-      await fetch('https://script.google.com/macros/s/SEU_SCRIPT_ID/exec', {
+      // Substitua SEU_SCRIPT_ID abaixo pelo ID real do seu Apps Script
+      await fetch('https://script.google.com/macros/s/AKfycbxjwvdtMBn5cZ2kV_cV65PQiUUgMrNIClJ2XYmZhC3NTeQbLQuxM86N8Jm6uV48s8--yg/exec', {
         method: 'POST',
         body: JSON.stringify({
           boardName: boardName,
