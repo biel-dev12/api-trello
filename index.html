@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
 </head>
+
 <body>
   <script>
+    window.addEventListener('error', function (e) {
+      console.error('Erro capturado:', e.message, e.filename, e.lineno);
+    });
     window.TrelloPowerUp.initialize({
-      'board-buttons': function(t, options) {
+      'board-buttons': function (t, options) {
         return [{
           icon: 'https://cdn-icons-png.flaticon.com/512/3596/3596161.png',
           text: 'Exportar para Google Sheets',
-          callback: function(t) {
+          callback: function (t) {
             return t.cards('all')
-              .then(function(cards) {
+              .then(function (cards) {
                 return fetch('https://script.google.com/macros/s/AKfycbxPjtN7rqK_9Yp1W-BClUnnh_5oTiKvNXDoHCSLrExwddzm_c-OptRxiXj6-GR12E3g/exec', {
                   method: 'POST',
                   body: JSON.stringify({ cards: cards }),
@@ -33,4 +38,5 @@
     });
   </script>
 </body>
+
 </html>
