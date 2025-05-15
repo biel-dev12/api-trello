@@ -1,40 +1,36 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Sync Trello com Sheets</title>
-</head>
-<body>
-  <h3>Sincronizando Trello com Google Sheets...</h3>
-  <script>
-    const boardId = 'sFyNSNcy'; // Substitua com o ID real do seu board
-    const boardName = 'Teste'; // Nome do board
-    const apiKey = 'f55cd6733cebba6ebba7512c8ecf7c1e';
-    const token = 'ATTA185c4615062c0bd31aaa05c901205d67870afe29160e2c56ee95c3461b5e045f401885FD';
+  <head>
+    <script src="https://p.trellocdn.com/power-up.min.js"></script>
+    <meta charset="utf-8">
+    <title>Exportar para Google Sheets</title>
+  </head>
+  <body>
+    <script>
+      var t = TrelloPowerUp.iframe();
 
-    const url = `https://api.trello.com/1/boards/${boardId}/cards?key=${apiKey}&token=${token}`;
-
-    fetch(url)
-      .then(res => res.json())
-      .then(cards => {
-        return fetch('https://script.google.com/macros/library/d/1KnGQ2bbUCP0fyzgGdZ6aoF0Yk_KoBKtFiL7URSKKDjgDpT1W4OsLxWZh/3', {
-          method: 'POST',
-          mode: 'cors',
-          body: JSON.stringify({
-            boardName: boardName,
-            cards: cards.map(c => ({
-              name: c.name,
-              desc: c.desc,
-              due: c.due,
-              list: c.idList
-            }))
-          }),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-      })
-      .then(() => alert('Dados enviados para Google Sheets!'))
-      .catch(err => alert('Erro: ' + err));
-  </script>
-</body>
+      window.TrelloPowerUp.initialize({
+        'board-buttons': function(t, options) {
+          return [{
+            icon: 'https://cdn-icons-png.flaticon.com/512/3596/3596161.png', // ou outro ícone
+            text: 'Exportar para Google Sheets',
+            callback: function(t) {
+              return t.cards('all')
+                .then(function(cards) {
+                  return fetch('https://script.google.com/macros/s/AKfycbxPjtN7rqK_9Yp1W-BClUnnh_5oTiKvNXDoHCSLrExwddzm_c-OptRxiXj6-GR12E3g/exec', {
+                    method: 'POST',
+                    body: JSON.stringify({ cards: cards }),
+                    headers: {
+                      'Content-Type': 'application/json'
+                    }
+                  });
+                })
+                .then(() => t.alert({ message: 'Exportado com sucesso!', duration: 5 }))
+                .catch(() => t.alert({ message: 'Erro ao exportar.', duration: 5 }));
+            }
+          }];
+        }
+      });
+    </script>
+  </body>
 </html>
