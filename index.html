@@ -1,36 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://p.trellocdn.com/power-up.min.js"></script>
-    <meta charset="utf-8">
-    <title>Exportar para Google Sheets</title>
-  </head>
-  <body>
-    <script>
-      var t = TrelloPowerUp.iframe();
-
-      window.TrelloPowerUp.initialize({
-        'board-buttons': function(t, options) {
-          return [{
-            icon: 'https://cdn-icons-png.flaticon.com/512/3596/3596161.png', // ou outro ícone
-            text: 'Exportar para Google Sheets',
-            callback: function(t) {
-              return t.cards('all')
-                .then(function(cards) {
-                  return fetch('https://script.google.com/macros/s/AKfycbxPjtN7rqK_9Yp1W-BClUnnh_5oTiKvNXDoHCSLrExwddzm_c-OptRxiXj6-GR12E3g/exec', {
-                    method: 'POST',
-                    body: JSON.stringify({ cards: cards }),
-                    headers: {
-                      'Content-Type': 'application/json'
-                    }
-                  });
-                })
-                .then(() => t.alert({ message: 'Exportado com sucesso!', duration: 5 }))
-                .catch(() => t.alert({ message: 'Erro ao exportar.', duration: 5 }));
-            }
-          }];
-        }
-      });
-    </script>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <script src="https://p.trellocdn.com/power-up.min.js"></script>
+</head>
+<body>
+  <script>
+    window.TrelloPowerUp.initialize({
+      'board-buttons': function(t, options) {
+        return [{
+          text: 'Exportar para Google Sheets',
+          callback: function(t) {
+            return t.cards('all')
+              .then(function(cards) {
+                return fetch('https://script.google.com/macros/s/AKfycbxPjtN7rqK_9Yp1W-BClUnnh_5oTiKvNXDoHCSLrExwddzm_c-OptRxiXj6-GR12E3g/exec', {
+                  method: 'POST',
+                  body: JSON.stringify({ cards: cards }),
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                });
+              })
+              .then(() => t.alert({ message: 'Exportado com sucesso!', duration: 5 }))
+              .catch(() => t.alert({ message: 'Erro ao exportar.', duration: 5 }));
+          }
+        }];
+      }
+    });
+  </script>
+</body>
 </html>
