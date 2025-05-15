@@ -4,7 +4,7 @@
     "board-buttons": {
       "enabled": true,
       "url": "./index.html",
-      "height": 0
+      "height": 1
     }
   }
 }
