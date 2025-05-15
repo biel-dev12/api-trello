@@ -1,10 +1,10 @@
 {
-    "name": "Exportar para Planilha",
-    "capabilities": {
-        "board-buttons": {
-            "enabled": true,
-            "url": "https://api-trello.netlify.app/index.html",
-            "height": 30
-        }
+  "name": "Exportar para Planilha",
+  "capabilities": {
+    "board-buttons": {
+      "enabled": true,
+      "url": "./index.html",
+      "height": 30
     }
+  }
 }

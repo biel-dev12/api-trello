@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8" />
   <script src="https://p.trellocdn.com/power-up.min.js"></script>
 </head>
-
 <body>
   <script>
     window.addEventListener('error', function (e) {
       console.error('Erro capturado:', e.message, e.filename, e.lineno);
     });
+
     window.TrelloPowerUp.initialize({
       'board-buttons': function (t, options) {
         return [{
@@ -19,7 +18,7 @@
           callback: function (t) {
             return t.cards('all')
               .then(function (cards) {
-                return fetch('https://script.google.com/macros/s/AKfycbxPjtN7rqK_9Yp1W-BClUnnh_5oTiKvNXDoHCSLrExwddzm_c-OptRxiXj6-GR12E3g/exec', {
+                return fetch('https://script.google.com/macros/s/AKfycbyRHKJnIpHKo8zph1NcvG6BmlAthAS2MebLZwg2EXGUPO0MXxeiW0uBLnPLyBPXGVDK/exec', {
                   method: 'POST',
                   body: JSON.stringify({ cards: cards }),
                   headers: {
@@ -38,5 +37,4 @@
     });
   </script>
 </body>
-
 </html>
